@@ -10,21 +10,22 @@ namespace Proy_P1
 {
     internal class CVideoSimulator
     {
-        private PictureBox canvas;
-        private Timer animationTimer;
-        private CStar star;
-        private Bitmap bufferBitmap;
-        private Graphics bufferGraphics;
-        private const float outerRadius = 1.75f;
-        private const float innerRadius = 0.95f;
-        private const int lineCount = 40;
+        public PictureBox canvas;
+        public Timer animationTimer;
+        public CStar star;
+        public BorderLines borderLines;
+        public Bitmap bufferBitmap;
+        public Graphics bufferGraphics;
+        public const float outerRadius = 1.75f;
+        public const float innerRadius = 0.95f;
+        public const int lineCount = 50;
 
         public CVideoSimulator(PictureBox pictureBox)
         {
             canvas = pictureBox;
             star = new CStar();
-            star.ReadData(outerRadius, innerRadius);
-            star.SetPoints(8); //Puntas
+            star.ReadData(outerRadius, innerRadius, 8);
+            
 
             // Crear el buffer del tamaño del PictureBox
             bufferBitmap = new Bitmap(canvas.Width, canvas.Height);
@@ -42,21 +43,25 @@ namespace Proy_P1
             animationTimer.Start();
         }
 
-        public void Stop()
-        {
+        public void Stop() {
             animationTimer.Stop();
         }
 
-        private void OnAnimationTick(object sender, EventArgs e)
+       
+
+
+
+        public void OnAnimationTick(object sender, EventArgs e)
         {
             // Pinta un rectángulo negro semi-transparente para crear el efecto rastro
-            using (SolidBrush fadeBrush = new SolidBrush(Color.FromArgb(30, 0, 0, 0)))
-            {
-                bufferGraphics.FillRectangle(fadeBrush, 0, 0, bufferBitmap.Width, bufferBitmap.Height);
-            }
+            SolidBrush fadeBrush = new SolidBrush(Color.FromArgb(30, 0, 0, 0));
+
+            bufferGraphics.FillRectangle(fadeBrush, 0, 0, bufferBitmap.Width, bufferBitmap.Height);
+
 
             // Dibujar líneas del borde en el buffer para que aparezcan siempre
-            DrawBorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, lineCount);
+            borderLines = new BorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, lineCount);
+            borderLines.DrawBorderLines();
 
             float centerX = bufferBitmap.Width / 2f;
             float centerY = bufferBitmap.Height / 2f;
@@ -68,57 +73,22 @@ namespace Proy_P1
             canvas.Image = bufferBitmap;
         }
 
-
-        private void DrawFrame(object sender, PaintEventArgs e)
+        public void RenderFrame(int frameNumber)
         {
-            Graphics g = e.Graphics;
+            SolidBrush fadeBrush = new SolidBrush(Color.FromArgb(30, 0, 0, 0));
 
-            // Crea un pincel negro transparente para efecto rastro
-            using (SolidBrush fadeBrush = new SolidBrush(Color.FromArgb(30, 0, 0, 0)))
-            {
-                g.FillRectangle(fadeBrush, 0, 0, canvas.Width, canvas.Height);
-            }
+            bufferGraphics.FillRectangle(fadeBrush, 0, 0, bufferBitmap.Width, bufferBitmap.Height);
 
-            // Dibujar líneas del borde desde CStar
-            DrawBorderLines(g, canvas.Width, canvas.Height, lineCount);
+            borderLines = new BorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, lineCount);
+            borderLines.DrawBorderLines();
 
-            // Coordenadas del centro
-            float centerX = canvas.Width / 2f;
-            float centerY = canvas.Height / 2f;
-
-            // Rotar y dibujar estrella
-            star.Rotate(2f, g, centerX, centerY);
+            float centerX = bufferBitmap.Width / 2f;
+            float centerY = bufferBitmap.Height / 2f;
+            // Lógica para pintar la estrella en el frame dado
+            star.SetAngle(frameNumber * 2f);  // Necesita método SetAngle
+            star.Rotate(0f, bufferGraphics, centerX, centerY);
+            canvas.Image = bufferBitmap;
         }
 
-        public void DrawBorderLines(Graphics g, float width, float height, int numLines)
-        {
-            if (numLines <= 1)
-                return;
-
-            Pen[] pens = {
-                new Pen(Color.LightGreen, 1),
-                new Pen(Color.LightSkyBlue, 1),
-                new Pen(Color.Orange, 1),
-                new Pen(Color.Violet, 1)
-            };
-
-            float stepX = width / numLines;
-            float stepY = height / numLines;
-
-            for (int i = 1; i < numLines; i++)
-            {
-                // Arriba → derecha
-                g.DrawLine(pens[0], i * stepX, 0, width, i * stepY);
-
-                // Derecha → abajo
-                g.DrawLine(pens[1], width, i * stepY, width - i * stepX, height);
-
-                // Abajo → izquierda
-                g.DrawLine(pens[2], width - i * stepX, height, 0, height - i * stepY);
-
-                // Izquierda → arriba
-                g.DrawLine(pens[3], 0, height - i * stepY, i * stepX, 0);
-            }
-        }
     }
 }
