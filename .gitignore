@@ -1,1 +1,21 @@
+# === Compilados ===
+**/bin/
+**/obj/
+
+# === Archivos de usuario y configuración local ===
+*.user
+*.suo
 *.vsidx
+*.userosscache
+*.sln.docstates
+
+# === Archivos de Visual Studio ===
+.vs/
+
+# === Copilot ===
+.vs/*/CopilotIndices/
+.vs/*/copilot-chat/
+
+# === Otros comunes en Windows/.NET ===
+*.log
+*.tmp
