@@ -42,12 +42,13 @@
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnPlay = new System.Windows.Forms.Button();
             this.retroceder = new System.Windows.Forms.Button();
             this.adelantar = new System.Windows.Forms.Button();
             this.trackBar = new System.Windows.Forms.TrackBar();
-            this.btnPlay = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.labelTiempo = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -132,9 +133,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.2069F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.7931F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.trackBar, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelTiempo, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 391);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -160,8 +162,24 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(213, 34);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(212, 34);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPlay.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlay.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnPlay.Location = new System.Drawing.Point(52, 3);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnPlay.Size = new System.Drawing.Size(88, 23);
+            this.btnPlay.TabIndex = 4;
+            this.btnPlay.UseMnemonic = false;
+            this.btnPlay.UseVisualStyleBackColor = false;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click_1);
             // 
             // retroceder
             // 
@@ -176,7 +194,7 @@
             // 
             // adelantar
             // 
-            this.adelantar.Location = new System.Drawing.Point(147, 3);
+            this.adelantar.Location = new System.Drawing.Point(146, 3);
             this.adelantar.Name = "adelantar";
             this.adelantar.Size = new System.Drawing.Size(35, 23);
             this.adelantar.TabIndex = 3;
@@ -186,27 +204,11 @@
             // trackBar
             // 
             this.trackBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar.Location = new System.Drawing.Point(216, 3);
+            this.trackBar.Location = new System.Drawing.Point(215, 3);
             this.trackBar.Name = "trackBar";
             this.trackBar.Size = new System.Drawing.Size(369, 28);
             this.trackBar.TabIndex = 1;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.btnPlay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPlay.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlay.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnPlay.Location = new System.Drawing.Point(53, 3);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnPlay.Size = new System.Drawing.Size(88, 23);
-            this.btnPlay.TabIndex = 4;
-            this.btnPlay.UseMnemonic = false;
-            this.btnPlay.UseVisualStyleBackColor = false;
-            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click_1);
             // 
             // pictureBox1
             // 
@@ -218,6 +220,15 @@
             this.pictureBox1.Size = new System.Drawing.Size(674, 425);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // labelTiempo
+            // 
+            this.labelTiempo.AutoSize = true;
+            this.labelTiempo.Location = new System.Drawing.Point(590, 0);
+            this.labelTiempo.Name = "labelTiempo";
+            this.labelTiempo.Size = new System.Drawing.Size(35, 13);
+            this.labelTiempo.TabIndex = 2;
+            this.labelTiempo.Text = "label1";
             // 
             // Reproductor
             // 
@@ -266,6 +277,7 @@
         private System.Windows.Forms.Button adelantar;
         private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.Label labelTiempo;
     }
 }
 

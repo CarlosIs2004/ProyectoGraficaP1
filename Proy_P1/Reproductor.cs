@@ -17,20 +17,26 @@ namespace Proy_P1
         Timer timer = new Timer();
         int frame = 0;
         bool isPlaying = false;
-        int maxFrames = 300; // Por ejemplo, duración simulada
+        int maxFrames = 33; // Por ejemplo, duración simulada
 
 
         public Reproductor()
         {
             InitializeComponent();
-            timer.Interval = 33; // ~30 FPS
+            trackBar.Minimum = 0;
+            trackBar.Maximum = maxFrames;
+            trackBar.Value = 0;
+
+            timer.Interval = 100; // ~30 FPS
             timer.Tick += (s, e) =>
             {
                 if (isPlaying && frame < maxFrames)
                 {
                     frame++;
                     trackBar.Value = frame;  // ← Avanza la barra
-                    this.Invalidate();        // ← Redibuja
+                    videoSim.RenderFrame(frame);
+                    if (labelTiempo != null)
+                        labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
                 }
                 else if (frame >= maxFrames)
                 {
@@ -40,16 +46,14 @@ namespace Proy_P1
                 }
 
             };
-         }
+
+         
+
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             videoSim = new CVideoSimulator(pictureBox1);
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
 
         }
 
@@ -59,12 +63,14 @@ namespace Proy_P1
             if (!isPlaying)
             {
                 videoSim.Start();
+                timer.Start();
                 isPlaying = true;
                 btnPlay.Text = "⏸️ Pausar";
             }
             else
             {
                 videoSim.Stop();
+                timer.Stop();
                 isPlaying = false;
                 btnPlay.Text = "▶️ Reanudar";
             }   
@@ -79,8 +85,11 @@ namespace Proy_P1
         {
             frame = trackBar.Value;
             videoSim.RenderFrame(frame);
+            if (labelTiempo != null)
+                labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
+
         }
 
- 
+
     }
 }

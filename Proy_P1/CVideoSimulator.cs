@@ -18,7 +18,11 @@ namespace Proy_P1
         public Graphics bufferGraphics;
         public const float outerRadius = 1.75f;
         public const float innerRadius = 0.95f;
-        public const int lineCount = 50;
+        private int currentLines = 0;
+        private int elapsedSeconds = 0;
+        private int animationDuration = 15; // Duración total en segundos o frames
+
+
 
         public CVideoSimulator(PictureBox pictureBox)
         {
@@ -33,9 +37,9 @@ namespace Proy_P1
             bufferGraphics.Clear(Color.Black);
 
             animationTimer = new Timer();
-            animationTimer.Interval = 150;
+            animationTimer.Interval = 200;
             animationTimer.Tick += OnAnimationTick;
-            
+
         }
 
         public void Start()
@@ -59,12 +63,14 @@ namespace Proy_P1
             bufferGraphics.FillRectangle(fadeBrush, 0, 0, bufferBitmap.Width, bufferBitmap.Height);
 
 
-            // Dibujar líneas del borde en el buffer para que aparezcan siempre
-            borderLines = new BorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, lineCount);
-            borderLines.DrawBorderLines();
-
             float centerX = bufferBitmap.Width / 2f;
             float centerY = bufferBitmap.Height / 2f;
+
+            
+            if (currentLines > 15){ currentLines = 2;}// Reinicia la animación
+            borderLines = new BorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, currentLines);
+            borderLines.DrawBorderLines();
+            currentLines++;
 
             // Rota la estrella y la dibuja en el buffer
             star.Rotate(2f, bufferGraphics, centerX, centerY);
@@ -79,16 +85,26 @@ namespace Proy_P1
 
             bufferGraphics.FillRectangle(fadeBrush, 0, 0, bufferBitmap.Width, bufferBitmap.Height);
 
-            borderLines = new BorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, lineCount);
-            borderLines.DrawBorderLines();
 
             float centerX = bufferBitmap.Width / 2f;
             float centerY = bufferBitmap.Height / 2f;
-            // Lógica para pintar la estrella en el frame dado
-            star.SetAngle(frameNumber * 2f);  // Necesita método SetAngle
+
+            if (currentLines > 15) { currentLines = 2; }// Reinicia la animación
+            borderLines = new BorderLines(bufferGraphics, bufferBitmap.Width, bufferBitmap.Height, frameNumber);
+            borderLines.DrawBorderLines();
+
+            star.SetAngle(frameNumber * 2f); 
             star.Rotate(0f, bufferGraphics, centerX, centerY);
             canvas.Image = bufferBitmap;
+
+
+
+
         }
+
+       
+
+
 
     }
 }
