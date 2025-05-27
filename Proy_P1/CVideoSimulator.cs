@@ -14,6 +14,7 @@ namespace Proy_P1
         public Timer animationTimer;
         public CStar star;
         public BorderLines borderLines;
+        public CTriangle triangle;
         public Bitmap bufferBitmap;
         public Graphics bufferGraphics;
         public const float outerRadius = 1.75f;
@@ -29,7 +30,9 @@ namespace Proy_P1
             canvas = pictureBox;
             star = new CStar();
             star.ReadData(outerRadius, innerRadius, 8);
-            
+
+            // Inicializamos el triángulo con un tamaño por defecto
+            triangle = new CTriangle(90f);
 
             // Crear el buffer del tamaño del PictureBox
             bufferBitmap = new Bitmap(canvas.Width, canvas.Height);
@@ -75,6 +78,9 @@ namespace Proy_P1
             // Rota la estrella y la dibuja en el buffer
             star.Rotate(2f, bufferGraphics, centerX, centerY);
 
+            // Rota el triángulo y lo dibuja en el buffer
+            triangle.Rotate(2f, bufferGraphics, centerX, centerY);
+
             // Actualiza el PictureBox con el bitmap actualizado
             canvas.Image = bufferBitmap;
         }
@@ -95,16 +101,12 @@ namespace Proy_P1
 
             star.SetAngle(frameNumber * 2f); 
             star.Rotate(0f, bufferGraphics, centerX, centerY);
+
+            // Renderizamos el triángulo en el frame
+            triangle.Rotate(frameNumber * 2f, bufferGraphics, centerX, centerY);
+
             canvas.Image = bufferBitmap;
 
-
-
-
         }
-
-       
-
-
-
     }
 }

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BorderLines.cs" />
     <Compile Include="CStar.cs" />
+    <Compile Include="CTriangle.cs" />
     <Compile Include="CVideoSimulator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
