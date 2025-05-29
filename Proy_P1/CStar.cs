@@ -17,13 +17,15 @@ namespace Proy_P1
         private const float SF = 10;
         private int numPoints = 5; //Puntas por defecto
 
-        public void ReadData(float outer, float inner, int points)
-        {
+        public CStar(float outer, float inner, int points) {
             if (points >= 2)  // mínimo 2 puntas
                 numPoints = points;
             sRadiusOuter = outer;
             sRadiusInner = inner;
+
+
         }
+
         public void SetAngle(float angle)
         {
             mAngle = angle;
@@ -46,6 +48,7 @@ namespace Proy_P1
             for (int i = 0; i < starPoints.Length; i++)
             {
                 float radius = (i % 2 == 0) ? sRadiusOuter * SF : sRadiusInner * SF;
+
                 float x = (float)(radius * Math.Cos(angle));
                 float y = (float)(radius * Math.Sin(angle));
 

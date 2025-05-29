@@ -17,11 +17,6 @@ namespace Proy_P1
             size = initialSize;
         }
 
-        public void SetSize(float newSize)
-        {
-            size = newSize;
-        }
-
         public void SetAngle(float newAngle)
         {
             angle = newAngle;

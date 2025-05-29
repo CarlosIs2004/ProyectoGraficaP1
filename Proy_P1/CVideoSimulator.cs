@@ -15,21 +15,20 @@ namespace Proy_P1
         public CStar star;
         public BorderLines borderLines;
         public CTriangle triangle;
+
         public Bitmap bufferBitmap;
         public Graphics bufferGraphics;
+
         public const float outerRadius = 1.75f;
         public const float innerRadius = 0.95f;
+
         private int currentLines = 0;
-        private int elapsedSeconds = 0;
-        private int animationDuration = 15; // Duración total en segundos o frames
-
-
 
         public CVideoSimulator(PictureBox pictureBox)
         {
             canvas = pictureBox;
-            star = new CStar();
-            star.ReadData(outerRadius, innerRadius, 8);
+            // Inicializamos el estrella con un tamaño por defecto
+            star = new CStar(outerRadius, innerRadius, 8);
 
             // Inicializamos el triángulo con un tamaño por defecto
             triangle = new CTriangle(90f);
@@ -54,10 +53,6 @@ namespace Proy_P1
             animationTimer.Stop();
         }
 
-       
-
-
-
         public void OnAnimationTick(object sender, EventArgs e)
         {
             // Pinta un rectángulo negro semi-transparente para crear el efecto rastro
@@ -75,7 +70,7 @@ namespace Proy_P1
             borderLines.DrawBorderLines();
             currentLines++;
 
-            // Rota la estrella y la dibuja en el buffer
+            //Rota la estrella y la dibuja en el buffer
             star.Rotate(2f, bufferGraphics, centerX, centerY);
 
             // Rota el triángulo y lo dibuja en el buffer
@@ -102,8 +97,8 @@ namespace Proy_P1
             star.SetAngle(frameNumber * 2f); 
             star.Rotate(0f, bufferGraphics, centerX, centerY);
 
-            // Renderizamos el triángulo en el frame
-            triangle.Rotate(frameNumber * 2f, bufferGraphics, centerX, centerY);
+            triangle.SetAngle(frameNumber * 2f);
+            triangle.Rotate(0f, bufferGraphics, centerX, centerY);
 
             canvas.Image = bufferBitmap;
 

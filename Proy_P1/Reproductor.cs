@@ -33,15 +33,18 @@ namespace Proy_P1
                 if (isPlaying && frame < maxFrames)
                 {
                     frame++;
-                    trackBar.Value = frame;  // ← Avanza la barra
+                    trackBar.Value = frame;  
                     videoSim.RenderFrame(frame);
                     if (labelTiempo != null)
                         labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
                 }
                 else if (frame >= maxFrames)
                 {
-                    videoSim.Stop();
-                    isPlaying = false;
+                    frame = 0;
+                    trackBar.Value = frame;
+                    videoSim.RenderFrame(frame);
+                    if (labelTiempo != null)
+                        labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
                     btnPlay.Text = "▶️ Reproducir";
                 }
 
@@ -76,10 +79,7 @@ namespace Proy_P1
             }   
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void trackBar_Scroll(object sender, EventArgs e)
         {
@@ -87,9 +87,25 @@ namespace Proy_P1
             videoSim.RenderFrame(frame);
             if (labelTiempo != null)
                 labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
+            
 
         }
 
+        private void adelantar_Click(object sender, EventArgs e)
+        {
+            frame++;
+            videoSim.RenderFrame(frame);
+            if (labelTiempo != null)
+                labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
 
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frame--;
+            videoSim.RenderFrame(frame);
+            if (labelTiempo != null)
+                labelTiempo.Text = $"Tiempo: {frame / 30.0:F2} s";
+
+        }
     }
 }
